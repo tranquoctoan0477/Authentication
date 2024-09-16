@@ -5,41 +5,34 @@
 package toan.dev;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.PrintWriter;
 
 /**
  *
  * @author tranq
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "ProductServlet", urlPatterns = {"/ProductServlet"})
+public class ProductServlet extends BaseServlet {
 
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("a") == null) {
-            int a = 0;
-            session.setAttribute("a", a);
-        } else {
-            int a = (int) session.getAttribute("a");
-            a++;
-            session.setAttribute("a", a);
-            PrintWriter out = response.getWriter();
-            out.print(a);
-        }
-
+        
     }
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
+    
 }

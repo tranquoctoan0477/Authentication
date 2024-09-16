@@ -83,6 +83,36 @@ public class UserImpl implements UserDao{
         }
         return null;
 	}
+        
+        @Override
+	public User findEmail(String userEmail) {
+    // Câu truy vấn SQL để tìm người dùng theo email
+    String sql = "SELECT * FROM USERS WHERE email = ?";
+    try {
+        // Chuẩn bị câu lệnh SQL với tham số email
+        PreparedStatement stmt = con.prepareStatement(sql);
+        // Gán tham số email (chuỗi) vào vị trí thứ nhất trong câu truy vấn SQL
+        stmt.setString(1, userEmail); 
+        // Thực thi câu lệnh truy vấn
+        ResultSet rs = stmt.executeQuery();
+        // Nếu có kết quả trả về từ cơ sở dữ liệu
+        if (rs.next()) {
+            // Lấy các giá trị từ kết quả truy vấn
+            String email = rs.getString("email");
+            String password = rs.getString("password");
+            String role = rs.getString("role");
+            int userId = rs.getInt("userId");  // Giả định bảng có cột userId
+            // Trả về một đối tượng User mới với các giá trị đã lấy
+            return new User(userId, email, password, role);
+        }
+    } catch (SQLException e) {
+        // In ra lỗi nếu có ngoại lệ xảy ra
+        e.printStackTrace();
+    }
+    // Trả về null nếu không tìm thấy người dùng
+    return null;
+}
+
 
 	@Override
 	public List<User> findAll() {
